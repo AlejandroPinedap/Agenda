@@ -4,22 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Grupo {
-    public enum Categoria {
-        OFICINA, FIESTA, AMIGOS, FAMILIA
-    }
-
+    
     private String nombre;
     private Categoria categoria;
     private List<Contacto> contactos;
 
-    // Constructor
     public Grupo(String nombre, Categoria categoria) {
         this.nombre = nombre;
         this.categoria = categoria;
         this.contactos = new ArrayList<>();
     }
 
-    // Getters y Setters
+    public void agregarContacto(Contacto contacto) {
+        if (!contactos.contains(contacto) && contactos.size() < 5) {
+            contactos.add(contacto);
+        }
+    }
+
+    public void eliminarContacto(Contacto contacto) {
+        contactos.remove(contacto);
+    }
+
+    // Getters y setters
     public String getNombre() {
         return nombre;
     }
@@ -40,5 +46,7 @@ public class Grupo {
         return contactos;
     }
 
-
+    public void setContactos(List<Contacto> contactos) {
+        this.contactos = contactos;
+    }
 }

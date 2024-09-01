@@ -1,9 +1,11 @@
 package co.edu.uniquindio.poo;
 
-import java.sql.Date;
+
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class Reunion {
     private String descripcion;
@@ -11,7 +13,6 @@ public class Reunion {
     private Time hora;
     private List<Contacto> asistentes;
 
-    // Constructor
     public Reunion(String descripcion, Date fecha, Time hora) {
         this.descripcion = descripcion;
         this.fecha = fecha;
@@ -19,7 +20,8 @@ public class Reunion {
         this.asistentes = new ArrayList<>();
     }
 
-    // Getters y Setters
+    //metodos get an set
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -47,4 +49,43 @@ public class Reunion {
     public List<Contacto> getAsistentes() {
         return asistentes;
     }
+
+    public void setAsistentes(List<Contacto> asistentes) {
+        this.asistentes = asistentes;
+    }
+
+    public void agregarAsistente(Contacto contacto) {
+        if (!asistentes.contains(contacto)) {
+            asistentes.add(contacto);
+        }
+    }
+
+    public void eliminarAsistente(Contacto contacto) {
+        asistentes.remove(contacto);
+    }
+
+    //se encarga de comparar los objetos junto al metodos hash
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reunion reunion = (Reunion) o;
+        return Objects.equals(descripcion, reunion.descripcion) &&
+               Objects.equals(fecha, reunion.fecha) &&
+               Objects.equals(hora, reunion.hora);
+    }
+
+    //genera un valor hash para un objeto
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(descripcion, fecha, hora);
+    }
+
+    public void verificarDuplicado(Reunion otraReunion) {
+        if (this.equals(otraReunion)) {
+            throw new IllegalArgumentException("No se pueden crear dos reuniones idénticas");
+        }
+    }
 }
+
